@@ -8,11 +8,20 @@ const HomeScreen = () => {
       </View>
    );
 };
-export default HomeScreen;
-
 const styles = StyleSheet.create({
+   titleText: {
+      color: "#000080",
+      fontSize: 24,
+      fontWeight: "bold",
+      paddingBottom: 5,
+   },
+   dateText: {
+      fontSize: 15,
+      color: "light gray",
+      paddingBottom: 20,
+   },
    container: {
-      flex: 1,
-      backgroundColor: "#fff",
+      padding: 20,
    },
 });
+export default HomeScreen;

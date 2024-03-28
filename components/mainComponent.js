@@ -1,16 +1,23 @@
 import { StyleSheet, Text, View } from "react-native";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import HomeScreen from "../screens/Home";
 import EntriesScreen from "../screens/Entries";
 import NewEntryScreen from "../screens/NewEntry";
-import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 /* const HomeNavigator = () => {
    const Stack = createNativeStackNavigator();
    return (
       <Stack.Navigator>
          <Stack.Screen name="Home" component={HomeScreen} />
+      </Stack.Navigator>
+   );
+}; */
+/* const NewEntryNavigator = () => {
+   const Stack = createNativeStackNavigator();
+   return (
+      <Stack.Navigator>
+         <Stack.Screen name="New Entry" component={NewEntryScreen} />
       </Stack.Navigator>
    );
 }; */
@@ -26,14 +33,6 @@ const EntriesNavigator = () => {
       </Stack.Navigator>
    );
 };
-/* const NewEntryNavigator = () => {
-   const Stack = createNativeStackNavigator();
-   return (
-      <Stack.Navigator>
-         <Stack.Screen name="New Entry" component={NewEntryScreen} />
-      </Stack.Navigator>
-   );
-}; */
 
 const MainComponent = () => {
    const Tab = createBottomTabNavigator();
@@ -41,6 +40,7 @@ const MainComponent = () => {
       <Tab.Navigator
          initialRouteName="Home"
          screenOptions={{
+            headerShown: true,
             tabBarStyle: styles.tabs,
             tabBarLabelStyle: styles.tabText,
             tabBarActiveBackgroundColor: "#4682b4",
