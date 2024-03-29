@@ -1,35 +1,21 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet } from "react-native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import HomeScreen from "../screens/Home";
 import EntriesScreen from "../screens/Entries";
 import NewEntryScreen from "../screens/NewEntry";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import EntryScreen from "../screens/Entry";
 
-/* const HomeNavigator = () => {
-   const Stack = createNativeStackNavigator();
-   return (
-      <Stack.Navigator>
-         <Stack.Screen name="Home" component={HomeScreen} />
-      </Stack.Navigator>
-   );
-}; */
-/* const NewEntryNavigator = () => {
-   const Stack = createNativeStackNavigator();
-   return (
-      <Stack.Navigator>
-         <Stack.Screen name="New Entry" component={NewEntryScreen} />
-      </Stack.Navigator>
-   );
-}; */
 const EntriesNavigator = () => {
    const Stack = createNativeStackNavigator();
    return (
       <Stack.Navigator
          screenOptions={{
-            headerShown: false,
+            headerShown: true,
          }}
       >
          <Stack.Screen name="All Entries" component={EntriesScreen} />
+         <Stack.Screen name="Entry" component={EntryScreen} />
       </Stack.Navigator>
    );
 };
@@ -43,7 +29,6 @@ const MainComponent = () => {
             headerShown: true,
             tabBarStyle: styles.tabs,
             tabBarLabelStyle: styles.tabText,
-            tabBarActiveBackgroundColor: "#4682b4",
             tabBarIconStyle: styles.tabIcon,
             headerStyle: styles.tabHeaderBg,
             headerTintColor: "#000080",
@@ -51,7 +36,11 @@ const MainComponent = () => {
       >
          <Tab.Screen name="Home" component={HomeScreen} />
          <Tab.Screen name="Entries" component={EntriesNavigator} />
-         <Tab.Screen name="New Entry" component={NewEntryScreen} />
+         <Tab.Screen
+            name="New Entry"
+            component={NewEntryScreen}
+            home={HomeScreen}
+         />
       </Tab.Navigator>
    );
 };

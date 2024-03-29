@@ -1,23 +1,28 @@
-import { StyleSheet, Text, View } from "react-native";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { selectAllEntries } from "../redux/entrySlice";
 import { useSelector } from "react-redux";
 
-const EntriesScreen = () => {
+const EntriesScreen = ({ navigation }) => {
    const entries = useSelector(selectAllEntries);
    return (
-      <View style={styles.container}>
-         <View>
+      <ScrollView>
+         <View style={styles.container}>
             {entries.map((entry) => {
                return (
-                  <>
-                     <Text style={styles.titleText}>{entry.title}</Text>
+                  <View key={entry.id}>
+                     <Text
+                        onPress={() => navigation.navigate("Entry", { entry })}
+                        style={styles.titleText}
+                     >
+                        {entry.event}
+                     </Text>
                      <Text style={styles.dateText}>{entry.date}</Text>
-                  </>
+                  </View>
                );
             })}
+            <Text></Text>
          </View>
-         <Text></Text>
-      </View>
+      </ScrollView>
    );
 };
 export default EntriesScreen;
@@ -31,7 +36,6 @@ const styles = StyleSheet.create({
    },
    dateText: {
       fontSize: 15,
-      color: "light gray",
       paddingBottom: 20,
    },
    container: {

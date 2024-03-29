@@ -36,27 +36,3 @@ export const selectLatestEntry = (state) => {
 export const selectEntryId = (id) => (state) => {
    return state.entries.entriesArray.find((entry) => entry.id === id);
 };
-
-export const selectYears = (entries) => {
-   const years = entries.reduce((acc, val) => {
-      const date = val.date[0] + val.date[1] + val.date[2] + val.date[3];
-      const dup = acc.some((dateM) => {
-         return dateM === date;
-      });
-      !dup && acc.push(date);
-      return acc;
-   }, []);
-   return years;
-};
-
-export const selectEmotions = (entries) => {
-   const emotions = entries.reduce((acc, val) => {
-      const emotion = val.emotionTag;
-      const dup = acc.some((dateM) => {
-         return dateM === emotion;
-      });
-      !dup && acc.push(emotion);
-      return acc;
-   }, []);
-   return emotions;
-};
