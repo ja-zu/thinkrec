@@ -11,6 +11,7 @@ import { useDispatch } from "react-redux";
 import { addEntry } from "../redux/entrySlice";
 import DateTimePicker from "react-native-ui-datepicker";
 import dayjs from "dayjs";
+import * as Animatable from "react-native-animatable";
 
 const NewEntryScreen = ({ home }) => {
    const customParseFormat = require("dayjs/plugin/customParseFormat");
@@ -55,12 +56,14 @@ const NewEntryScreen = ({ home }) => {
    const ShowDate = () => {
       if (datePicker) {
          return (
-            <DateTimePicker
-               mode="single"
-               date={date}
-               onChange={(params) => setDate(params.date)}
-               setDatePicker
-            />
+            <Animatable.View animation="fadeInDown">
+               <DateTimePicker
+                  mode="single"
+                  date={date}
+                  onChange={(params) => setDate(params.date)}
+                  setDatePicker
+               />
+            </Animatable.View>
          );
       }
    };
@@ -79,12 +82,13 @@ const NewEntryScreen = ({ home }) => {
    return (
       <ScrollView>
          <View style={styles.containerEntry}>
-            <Text variant="titleLarge">Date</Text>
-            <Text variant="headlineLarge">
+            <Text style={styles.titleText}>Date</Text>
+            <Text style={styles.bodyText}>
                {dayjs(date).format("MM/DD/YYYY")}
             </Text>
             <ShowDate />
-            <View style={styles.container}>
+
+            <Animatable.View animation="fadeInDown" style={styles.container}>
                <Button
                   style={styles.container}
                   icon="calendar"
@@ -93,10 +97,13 @@ const NewEntryScreen = ({ home }) => {
                >
                   Set Date
                </Button>
-            </View>
+            </Animatable.View>
 
+            <Text style={styles.titleText}>
+               The event that caused negative emotions
+            </Text>
             <TextInput
-               label="The event that caused negative emotions"
+               label="Enter the event"
                value={event}
                multiline={true}
                numberOfLines={5}
@@ -109,9 +116,11 @@ const NewEntryScreen = ({ home }) => {
             <HelperText type="error" visible={userError}>
                Fill in the event
             </HelperText>
-
+            <Text style={styles.titleText}>
+               Log your initial thoughts about the situation
+            </Text>
             <TextInput
-               label="Log your initial thoughts about the situation"
+               label="Log thoughts"
                value={thought}
                multiline={true}
                numberOfLines={5}
@@ -119,7 +128,9 @@ const NewEntryScreen = ({ home }) => {
                onChangeText={(thought) => setThought(thought)}
             />
             <View style={styles.emoRow}>
-               <Text variant="titleLarge">Select an Emotion</Text>
+               <Text style={styles.titleText}>
+                  What did you feel in the situation?
+               </Text>
                <ToggleButton.Row
                   onValueChange={(emotion) => setEmotion(emotion)}
                   value={emotion}
@@ -130,31 +141,35 @@ const NewEntryScreen = ({ home }) => {
                      size={60}
                      icon="emoticon-angry"
                      value="angry"
+                     iconColor="red"
                   />
                   <ToggleButton
                      style={styles.emoIcon}
                      size={60}
                      icon="emoticon-confused"
                      value="confused"
+                     iconColor="orange"
                   />
                   <ToggleButton
                      style={styles.emoIcon}
                      size={60}
                      icon="emoticon-cry"
                      value="sad"
+                     iconColor="blue"
                   />
                   <ToggleButton
                      style={styles.emoIcon}
                      size={60}
                      icon="emoticon-frown"
                      value="upset"
+                     iconColor="purple"
                   />
                </ToggleButton.Row>
             </View>
-
+            <Text style={styles.titleText}>Challenge your thoughts</Text>
             <TextInput
-               label="Challenge Your Thoughts"
                value={altThought}
+               label="Think of another conclusion"
                multiline={true}
                numberOfLines={5}
                style={styles.textInput}
@@ -188,6 +203,7 @@ const styles = StyleSheet.create({
    },
    emoRow: {
       paddingTop: 20,
+      marginBottom: 20,
       display: "flex",
       height: 150,
    },
@@ -195,9 +211,25 @@ const styles = StyleSheet.create({
       padding: 5,
       height: 100,
       flex: 1,
+      color: "#000080",
    },
    textInput: {
       height: 90,
       marginBottom: 10,
+      fontSize: 20,
+   },
+   titleText: {
+      color: "#000080",
+      fontSize: 24,
+      fontWeight: "bold",
+      paddingBottom: 5,
+   },
+   subtitleText: {
+      fontSize: 20,
+      paddingBottom: 20,
+   },
+   bodyText: {
+      fontSize: 20,
+      paddingBottom: 20,
    },
 });

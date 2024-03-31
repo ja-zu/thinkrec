@@ -1,7 +1,13 @@
 import { ScrollView, StyleSheet, View } from "react-native";
-import { Card, Text, Avatar } from "react-native-paper";
+import { Card, Text, Avatar, Button } from "react-native-paper";
+import { deleteEntry } from "../redux/entrySlice";
+import { useDispatch } from "react-redux";
+import { useNavigation } from "@react-navigation/native";
 
 const EntryScreen = ({ route }) => {
+   const navigation = useNavigation();
+   const dispatch = useDispatch();
+   //const timer = setTimeout(300);
    const { entry } = route.params;
    const handleEmotion = (emotion) => {
       switch (emotion) {
@@ -41,6 +47,16 @@ const EntryScreen = ({ route }) => {
                <Text style={styles.bodyText}>{entry.altThought}</Text>
             </Card.Content>
          </Card>
+         <Button
+            mode="contained"
+            style={{ margin: 20, padding: 20 }}
+            onPress={async () => {
+               navigation.navigate("Entries", { screen: "All Entries" });
+               dispatch(deleteEntry(entry.id));
+            }}
+         >
+            Delete Entry
+         </Button>
       </ScrollView>
    );
 };

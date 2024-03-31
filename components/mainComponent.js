@@ -5,6 +5,7 @@ import EntriesScreen from "../screens/Entries";
 import NewEntryScreen from "../screens/NewEntry";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import EntryScreen from "../screens/Entry";
+import { Text, Icon } from "react-native-paper";
 
 const EntriesNavigator = () => {
    const Stack = createNativeStackNavigator();
@@ -32,12 +33,35 @@ const MainComponent = () => {
             tabBarIconStyle: styles.tabIcon,
             headerStyle: styles.tabHeaderBg,
             headerTintColor: "#000080",
+            tabBarActiveTintColor: "#e91e63",
+            tabBarInactiveTintColor: "#636363",
          }}
       >
-         <Tab.Screen name="Home" component={HomeScreen} />
-         <Tab.Screen name="Entries" component={EntriesNavigator} />
+         <Tab.Screen
+            name="Home"
+            component={HomeScreen}
+            options={{
+               tabBarIcon: ({ color, size }) => (
+                  <Icon source="home" color={color} size={size} />
+               ),
+            }}
+         />
+         <Tab.Screen
+            name="Entries"
+            component={EntriesNavigator}
+            options={{
+               tabBarIcon: ({ color, size }) => (
+                  <Icon source="archive" color={color} size={size} />
+               ),
+            }}
+         />
          <Tab.Screen
             name="New Entry"
+            options={{
+               tabBarIcon: ({ color, size }) => (
+                  <Icon source="notebook-edit" color={color} size={size} />
+               ),
+            }}
             component={NewEntryScreen}
             home={HomeScreen}
          />
@@ -55,9 +79,6 @@ const styles = StyleSheet.create({
       fontSize: 15,
       textTransform: "uppercase",
       fontWeight: 800,
-   },
-   tabIcon: {
-      color: "#ffffff",
    },
    drawerHeaderText: {
       ViewStyle: {

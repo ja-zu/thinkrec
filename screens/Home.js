@@ -2,11 +2,13 @@ import { StyleSheet, View } from "react-native";
 import { selectLatestEntry } from "../redux/entrySlice";
 import { useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
-import { Button, Text } from "react-native-paper";
+import { Button, Text, Banner } from "react-native-paper";
+import { useState } from "react";
 
-const HomeScreen = () => {
+const HomeScreen = ({ route, msg }) => {
    const entry = useSelector(selectLatestEntry);
    const navigation = useNavigation();
+
    return (
       <View style={styles.container}>
          <Text variant="labelSmall" style={styles.titleText}>
